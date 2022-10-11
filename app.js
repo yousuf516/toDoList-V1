@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 
-var items = [];
+var items = ["Buy Food", "Cook Food", "Eat Food"];
 
 app.get("/", function(req, res){
 
@@ -31,9 +31,7 @@ app.post("/", function(req, res){
 
     res.redirect("/");
 
-
 });
-
 
 var port = 5501;
 app.listen(port, function() {
