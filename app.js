@@ -5,27 +5,27 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine', 'ejs');
 
-var items = ["Buy Food", "Cook Food", "Eat Food"];
+let items = ["Buy Food", "Cook Food", "Eat Food"];
 
 app.get("/", function(req, res){
 
-var today = new Date();
-var day = "";
+let today = new Date();
+let day = "";
 
-var options = {
+let options = {
     weekday: "long",
     day: "numeric",
     month: "long"
 }
 
-var day = today.toLocaleDateString("en-US", options);
+day = today.toLocaleDateString("en-US", options);
 
 res.render("list", {kindOfDay: day, newListItems:items});
 
 });
 
 app.post("/", function(req, res){
-    var item = req.body.newItem;
+    let item = req.body.newItem;
 
     items.push(item);
 
@@ -33,7 +33,7 @@ app.post("/", function(req, res){
 
 });
 
-var port = 5501;
+let port = 5501;
 app.listen(port, function() {
     console.log("Server started on port " + port + ".");
 });
