@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const date = require(__dirname + "/date.js")
+const mongoose = require("mongoose");
+const date = require(__dirname + "/date.js");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
