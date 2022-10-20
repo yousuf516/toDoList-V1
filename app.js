@@ -67,11 +67,23 @@ app.post("/", function(req, res){
 
 });
 
-// Work page
+app.post("/delete", function(req, res){
 
-app.get("/work", function(req, res){
-    res.render("list", {listTitle: "Work List", newListItems:workItems});
-});
+    const checkedItemId =  req.body.checkbox
+
+    Item.findByIdAndRemove(checkedItemId, function(err) {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            console.log("Successfully deleted checked item");
+            res.redirect("/");
+        }
+    })
+
+
+})
+
 
 
 let port = 5501;
