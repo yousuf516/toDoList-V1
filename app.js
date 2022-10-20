@@ -32,6 +32,12 @@ const Item3 = new Item ({
 
 const defaultItems = [Item1, Item2, Item3];
 
+const listSchema = {
+    name: String,
+    items: [itemSchema]
+}
+
+const List = mongoose.model("List", listSchema);
 
 app.get("/", function(req, res){
 Item.find({}, function (err, foundItems) {
@@ -82,7 +88,20 @@ app.post("/delete", function(req, res){
     })
 
 
-})
+});
+
+app.get(':name', function(req, res){
+
+    const CLS = req.params.name;
+    
+    const list = new List ({
+        name: CLS,
+        items: defaultItems
+    });
+
+    list.save();
+
+});
 
 
 
