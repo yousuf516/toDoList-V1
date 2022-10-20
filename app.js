@@ -19,15 +19,15 @@ const itemSchema = {
 const Item = mongoose.model("Item", itemSchema);
 
 const Item1 = new Item ({
-    itemName: "Hello 1"
+    itemName: "Welcome to Your Todolist"
 });
 
 const Item2 = new Item ({
-    itemName: "Hello 2"
+    itemName: "Hit the + button to add a new item."
 });
 
 const Item3 = new Item ({
-    itemName: "Hello 3" 
+    itemName: "<-- Hit this to delete an item." 
 });
 
 const defaultItems = [Item1, Item2, Item3];
@@ -62,14 +62,24 @@ Item.find({}, function (err, foundItems) {
 app.post("/", function(req, res){
 
     const itemName = req.body.newItem;
+    const listName = req.body.list;
 
     const item = new Item ({
         itemName: itemName
     });
 
-    item.save();
+    if(listName === "Today"){
+        item.save();
+        res.redirect("/");
+    }
+    else{
+        List.findOne({name: listName}, function(err, foundList){
+            foundList.items.push(item);
+            foundList.save();
+            res.redirect("/" + listName)
+        });
+    }
 
-    res.redirect("/");
 
 });
 
@@ -90,16 +100,26 @@ app.post("/delete", function(req, res){
 
 });
 
-app.get(':name', function(req, res){
+app.get('/:name', function(req, res){
 
     const CLS = req.params.name;
     
-    const list = new List ({
-        name: CLS,
-        items: defaultItems
-    });
+    List.findOne({name:CLS}, function(err, foundList){
+        if(!err){
+            if(!foundList){
+                const list = new List ({
+                    name: CLS,
+                    items: defaultItems
+                });
+                list.save();
+                res.redirect("/" + CLS)
+            }
+            else{
+                res.render("list", {listTitle: CLS, newListItems:foundList.items});
+            }
+        }
+    })
 
-    list.save();
 
 });
 
