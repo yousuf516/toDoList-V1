@@ -141,5 +141,5 @@ app.get('/:name', function(req, res){
 
 let port = 5501;
 app.listen(process.env.PORT, function() {
-    console.log("Server has started sucessfully.");
+    console.log("Server has started Sucessfully.");
 });
