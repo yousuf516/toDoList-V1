@@ -8,7 +8,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"))
 app.set('view engine', 'ejs');
 
-mongoose.connect("mongodb://localhost:27017/todolistDB");
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+
+mongoose.connect("mongodb+srv://admin-yousuf:nailamarium@cluster0.zc9mh3w.mongodb.net/todolistDB");
+// mongoose.connect("mongodb://localhost:27017/todolistDB");
 
 const itemSchema = {
     itemName: {
@@ -43,7 +46,7 @@ const List = mongoose.model("List", listSchema);
 app.get("/", function(req, res){
 Item.find({}, function (err, foundItems) {
 
-    if(foundItems.lenght === 0){
+    if(foundItems.length === 0){
         Item.insertMany(defaultItems, function(err){
             if(err) {
                 console.log(err);
