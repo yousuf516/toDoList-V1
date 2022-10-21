@@ -140,6 +140,6 @@ app.get('/:name', function(req, res){
 
 
 let port = 5501;
-app.listen(port, function() {
-    console.log("Server started on port " + port + ".");
+app.listen(process.env.PORT, function() {
+    console.log("Server has started sucessfully.");
 });

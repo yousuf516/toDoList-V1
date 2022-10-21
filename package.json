@@ -12,6 +12,9 @@
   },
   "author": "Yousuf",
   "license": "ISC",
+  "engines": {
+    "node": "16.17.1"
+  },
   "bugs": {
     "url": "https://github.com/yousuf516/toDoList-V1/issues"
   },
